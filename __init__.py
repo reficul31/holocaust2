@@ -25,11 +25,9 @@ def makevent():
 			query=query+str(k['label'].replace(" ","").replace("?","").lower())+" VARCHAR(1000)"
 			i+=1
 		query = query+")"
-		print query
 		db.engine.execute(query)
 		db.session.commit()
 		return str(data['form_data'])		
-
 	return render_template("makevent.html")
 if __name__ == '__main__':
 	app.run()
