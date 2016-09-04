@@ -7,10 +7,16 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.secret_key = 'r8YI5oHcl^^aHh1*KklFeQl5Jt2zJMTANyIp9DCua*&qqgm1!I4m)3g5kN6p'
 app.config['DEBUG'] = True 
 db=SQLAlchemy(app)
-@app.route('/index',methods=['GET','POST'])
+class Events(db.Model):
+	"""docstring for Events"""
+	e_id = db.Column(db.Integer, primary_key = True)
+	eventname= db.Column(db.String(100))
+	eventpasskey = db.Column(db.String(100))
+
+@app.route('/',methods=['GET','POST'])
 def index():
 	return render_template("index.html")
-@app.route('/makevent',methods=['GET','POST'])
+@app.route('/make/event',methods=['GET','POST'])
 def makevent():
 	if request.method =="POST":
 		data_file = request.form['sender']
@@ -27,7 +33,8 @@ def makevent():
 		query = query+")"
 		db.engine.execute(query)
 		db.session.commit()
-		return str(data['form_data'])		
+		return str(request.form['sender'])		
 	return render_template("makevent.html")
+db.create_all()
 if __name__ == '__main__':
 	app.run()
