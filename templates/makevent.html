@@ -1,7 +1,6 @@
 <html>
-
 <head>
-    <script src ="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src ="static/js/jquery.js"></script>
 </head>
 
 <body>
@@ -31,8 +30,8 @@
         </div>
         <input id="send" type="submit" name="submit">
 </div>
-<form id = "penisenvy" action='/makevent' method='POST'>
-    <input type="hidden" id="penis" name= 'penis'>
+<form id = "senderform" action='/makevent' method='POST'>
+    <input type="hidden" id="sender" name= 'sender'>
 </form>
 </body>
 
@@ -92,10 +91,8 @@
         });
 
         formdata = JSON.stringify(formdata);
-        document.getElementById('penis').value= formdata
-        console.log(document.getElementById('penis').value)
-        $("#penisenvy").submit()
-
+        document.getElementById('sender').value= formdata
+        console.log(document.getElementById('sender').value)
+        $("#senderform").submit()
         });
-
     </script>
