@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<title>Testing</title>
+	</head>
+	<body>
+		<h1>Register</h1>
+		{%for k in data%}
+			<br>
+			{%if k.type == "textbox"%}
+			<label>{{k.label}}</label>
+				<input type="text" name='{{k.label}}' />
+			{%endif%}
+			{%if k.type == "checkbox"%}
+			<label>{{k.label}}</label>
+			{%set list1 = k.vals.split(",")%}
+				{%for l in list1%}
+				<input type="checkbox" name='{{k.label}}' value={{l}}>{{l}}
+				{%endfor%}
+			{%endif%}
+			{%if k.type == "radiobutton"%}
+			<label>{{k.label}}</label>
+			{%set list1 = k.vals.split(",")%}
+				{%for l in list1%}
+				<input type="radio" name={{l.label}} value={{l}}>{{l}}
+				{%endfor%}
+			{%endif%}
+		{%endfor%}
+	</body>
+</html>
