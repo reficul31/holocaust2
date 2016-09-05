@@ -35,6 +35,9 @@ def makevent():
 		db.session.commit()
 		return str(request.form['sender'])		
 	return render_template("makevent.html")
-db.create_all()
+try:
+	db.create_all()
+except Exception, e:
+	print "SQL Connection failed"
 if __name__ == '__main__':
 	app.run()
