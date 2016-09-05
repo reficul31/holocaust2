@@ -63,7 +63,7 @@ def register(eventname):
     #         query+= ')'
     #         db.engine.execute(query)
     #         db.commit()
-    return render_template("register.html",data=r_data)
+    return render_template("register.html",data=r_data,eventname=eventname)
 
 try:
 	db.create_all()
@@ -71,3 +71,4 @@ except Exception, e:
 	print "SQL Connection failed"
 if __name__ == '__main__':
 	app.run()
+
