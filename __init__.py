@@ -81,10 +81,7 @@ def verify(eventname):
 
 @app.route('/view/<eventname>')
 def view(eventname):
-	query = 'SELECT * FROM GBM'
-
-	''' Not able to make the table name dynamic currently, will work on it. The idea is to have something like Select * from <eventname>'''
-
+	query = 'SELECT * FROM ' + eventname
 	all_users = db.engine.execute(query)
 	current_event = Events.query.filter_by(eventname = eventname).first()
 	data = json.loads(current_event.jsonstring)
