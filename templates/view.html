@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>View</title>
+</head>
+<body>
+	<table style="width:100%">
+	  
+	  <tr>
+	  {% for k in data %}
+		<th align="left"> {{k.label}} </th>	
+	  {% endfor %}
+	  </tr>
+	  
+	  {% for k in all_users %}
+	  	<tr>
+		    {% for l in k %}    	
+		    	<td> {{l}} </td>
+		    {% endfor %}
+		</tr>
+	 {% endfor %}
+	</table>
+</body>
+</html>

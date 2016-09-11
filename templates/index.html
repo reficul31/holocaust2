@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Holocaust</title>
+	 <script src ="/static/js/jquery.js"></script>
+</head>
+<body>
+	<h1> Welcome to the Holocaust </h1>
+	<a href = "/make/event"> Create New Event</a> <br><br>
+	<p1 id="register"> Register users for an event</p1> <br>
+		{% for k in all_events %}
+			<li> <a href = "verify/{{k[0]}}">{{k[0]}}</a> <br>
+		{% endfor %}
+	<br>
+	<p1> View registered users </p1> <br>
+		{% for k in all_events %}
+			<li> <a href = "view/{{k[0]}}">{{k[0]}}</a><br>
+		{% endfor %}
+
+</body>
+</html>
