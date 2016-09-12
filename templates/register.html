@@ -46,8 +46,10 @@
 				  	$.each($( this ).serializeArray() , function(k,v){ 	
 				  	obj[v.name]=v.value;
 				  });
-				  event.preventDefault();
+				event.preventDefault();
  				formdata=JSON.stringify(obj);
+ 				document.getElementById('sender').value= formdata;
+        		$("#senderform").submit();
 			});
 		});
 

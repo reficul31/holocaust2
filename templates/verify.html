@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Verify Password</title>
+</head>
+<body>
+	<form id = "senderform" action="{{url_for('verify',eventname=eventname)}}" method='POST'>
+    Enter event password: <input type="password" name='passkey'><br>
+    <input type="submit" name="submit">
+</form>
+</body>
+</html>
