@@ -1,46 +1,210 @@
 <html>
-	<head>
-		<title>Testing</title>
-		 <script src ="/static/js/jquery.js"></script>
-	</head>
-	<body>
-		<h1>Register for {{eventname}}</h1>
+<head>
 
+<title>Testing</title>
+
+
+
+   <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+    <script src ="../static/js/jquery.js"></script>
+
+<!-- Insert this line after script imports -->
+<script>if (window.module) module = window.module;</script>
+<script src="https://use.fontawesome.com/426ef538fa.js"></script>
+<style>
+	
+html,body 
+{
+    line-height: 1.6;
+    padding: 0px;
+    margin: 0;
+    width:100%;
+    height:100%;
+   	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+   	background-color: #eee;
+}
+
+::-webkit-scrollbar 
+{ 
+    display: none; 
+}
+
+.header
+{
+	height:100px;
+	width:100%;
+	background-color: #0D47A1;
+	font-size:26px;
+	text-align: center;
+	color:white;
+	line-height:100px;
+}
+
+.container
+{
+	width:80%;
+	height:-webkit-calc(100% - 100px);
+	background-color: #eee;
+	box-sizing: border-box;
+	padding:20px;
+	margin: 0 auto;
+	z-index:0;
+	position:relative;
+}
+
+#textbox
+{
+	background-color: white;
+	border:1px solid #D3D3D3;
+	text-transform: capitalize;
+	font-size:16px;
+	color:grey;
+	box-sizing: border-box;
+	padding-left:2px;
+}
+
+label
+{
+	font-size:18px;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+#send
+{
+	width:150px;
+	height:30px;
+	border-radius: 3px;
+	border:none;
+	margin-top:15px;
+	background-color: #0D47A1;
+	color:white;
+	font-size:20px;
+}
+
+#registerform
+{
+	width:80%;
+	margin:0 auto;
+}
+
+#adduser,#upload
+{
+	font-size:40;
+}
+
+#home
+{
+	font-size:36;
+	color:white;
+}
+#usertable,#adduser
+{
+	z-index: 0;
+}
+.wrapper
+{
+	width:100%;
+	position:relative;
+	z-index:10;
+	height:95%;
+	background-color: white;	
+	display:none;
+	top:0;
+}
+
+a
+{
+	color:black;
+	text-decoration: none;
+}
+
+tr:nth-child(even) 
+{
+	background-color: #ffffff;
+}
+
+</style>
+</head>
+	<body>
+		<div class="header"><a href="/">
+		<i class="fa fa-home" id="home" aria-hidden="true"></i>&nbsp
+		</a>IECSE Registrations</div>
+
+		<div class="container"> 
+		<i class="fa fa-user" id="adduser"></i> &nbsp Add Member &nbsp &nbsp
+
+		<a href="/upload/{{eventname}}">
+		<i class="fa fa-upload" id="upload" aria-hidden="true"></i>&nbsp Upload data
+		</a>
+		<br>
+
+		<table id="usertable" style="width:100%">
+			
+			  <tr>
+			  {% for k in upload_users[0] %}
+				    <th align="left">{{k}}</th>
+			  {% endfor %}
+			  </tr>
+			  {% for k in upload_users %}
+			  	<tr>
+				    {% for key in k %} 
+				    	<td>{{k[key]}}</td>
+				    {% endfor %}
+				    	<td> <a href="/delete/{{eventname}}/{{member_id}}">Delete </a>
+				</tr>
+			 {% endfor %}
+		</table>
+
+	<div class="wrapper">
 		<form name ="registerform" id="registerform" action="{{url_for('register',eventname=eventname)}}" method='POST'>
 
 		{%for k in data%}
 			<br>
 			{%if k.type == "textbox"%}
-			<label>{{k.label}}</label>
+			<label><b>{{k.label}}</b></label><br>	
 				<input type="text" name='{{k.label}}' id = 'textbox' required class="form-element form-textbox" />
 			{%endif%}
+
 			{%if k.type == "checkbox"%}
-			<label>{{k.label}}</label>
+			<label><b>{{k.label}}</b></label><br>
 			{%set list1 = k.vals.split(",")%}
 				{%for l in list1%}
 				<input type="checkbox" name='{{k.label}}' value={{l}} required class="form-element form-checkbox">{{l}}
 				{%endfor%}
 			{%endif%}
+
 			{%if k.type == "radiobutton"%}
-			<label>{{k.label}}</label>
+			<label><b>{{k.label}}</b></label><br>
 			{%set list1 = k.vals.split(",")%}
 				{%for l in list1%}
 				<input type="radio" name = '{{k.label}}' value='{{l}}' required class="form-element form-radiobutton">{{l}}
 				{%endfor%}
 			{%endif%}
+
 		{%endfor%}
-		<br>
-		<input type="submit" name="submit" value="submit" id='send'>
+		<br><br>
+		<input type="submit" name="submit" value="Submit" id='send'>
 		</form>
+		</div>
 
 		<form name="senderform" id ="senderform" action="{{url_for('register',eventname=eventname)}}" method='POST'>
     	<input type="hidden" id="sender" name='sender'>
 		</form>
-
+	</div>
 		<script>	
+
+
 			var formdata=[];
 			$(document).ready(function()
 			{
+				$('#adduser').click(function() {
+		   			$(".wrapper").toggle();
+				});
+
 				$( "#registerform" ).submit(function( event ) {
 					var obj = {}
 				  	$.each($( this ).serializeArray() , function(k,v){ 	

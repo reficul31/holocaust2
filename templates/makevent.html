@@ -1,6 +1,11 @@
 <html>
 <head>
-    <script src ="/static/js/jquery.js"></script>
+   <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+    <script src ="../static/js/jquery.js"></script>
+
+<!-- Insert this line after script imports -->
+<script>if (window.module) module = window.module;</script>
 </head>
 
 <body>
@@ -68,7 +73,6 @@
                 field = {
                     type: 'textbox',
                     label: $(this).children('input').eq(0).val()
-                    //placeholder: $(this).children('input').eq(1).val()
                 };
             }
             else if ($(this).hasClass('form-checkbox')) {
