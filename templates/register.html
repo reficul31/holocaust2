@@ -144,13 +144,15 @@ tr:nth-child(even)
 			  {% for k in upload_users[0] %}
 				    <th align="left">{{k}}</th>
 			  {% endfor %}
-			  </tr>
-			  {% for k in upload_users %}
+			   {% for k in upload_users %}
 			  	<tr>
+			  		{% set member_id = [] %}
 				    {% for key in k %} 
 				    	<td>{{k[key]}}</td>
+				    	{% set temp = k['memberid'] %}
+				    	{% do member_id.append(temp) %}
 				    {% endfor %}
-				    	<td> <a href="/delete/{{eventname}}/">Delete </a>
+				    <td> <a href="/delete/{{eventname}}/{{member_id[0]}}"><i class="fa fa-trash" aria-hidden="true"></i> </a>
 				</tr>
 			 {% endfor %}
 		</table>
@@ -190,6 +192,7 @@ tr:nth-child(even)
 		<form name="senderform" id ="senderform" action="{{url_for('register',eventname=eventname)}}" method='POST'>
     	<input type="hidden" id="sender" name='sender'>
 		</form>
+
 	</div>
 	</body>
 </html>

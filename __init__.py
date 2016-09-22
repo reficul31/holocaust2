@@ -7,6 +7,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://iecseman:sierrazulufoxtrotindia
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.secret_key = 'r8YI5oHcl^^aHh1*KklFeQl5Jt2zJMTANyIp9DCua*&qqgm1!I4m)3g5kN6p'
 app.config['DEBUG'] = True 
+app.jinja_env.add_extension('jinja2.ext.do')
 db=SQLAlchemy(app)
 
 class Events(db.Model):
@@ -79,14 +80,13 @@ def register(eventname):
     data = json.loads(current_event.jsonstring)
     r_data = data['form_data']['fields']
     database = TinyDB('/home/ankit/holocaust2/'+eventname+'.db')
-    database_copy = TinyDB('/home/ankit/holocaust2'+eventname+'_copy.db')
-
+    databasecopy = TinyDB('/home/ankit/holocaust2/'+eventname+'copy.db')
 
     if request.method == "POST":
 	    data_file = request.form['sender']
 	    data =json.loads(data_file)
 	    database.insert(data)
-	    database_copy.insert(data)
+	    databasecopy.insert(data)
 	    
     upload_users = database.all()
     return render_template("register.html",data=r_data,eventname=eventname, upload_users = upload_users)
@@ -117,6 +117,14 @@ def view(eventname):
 	r_data = data ['form_data']['fields']
 	return render_template('view.html',all_users = all_users,data = r_data)
 
+@app.route('/delete/<eventname>/<memberid>')
+def delete(eventname,memberid):
+	database = TinyDB('/home/ankit/holocaust2/'+eventname+'.db')
+	databasecopy = TinyDB('/home/ankit/holocaust2/'+eventname+'copy.db')
+	database.remove(where('memberid') == memberid)
+	databasecopy.remove(where('memberid') == memberid)
+	return redirect (url_for('register',eventname = eventname))
+
 try:
 	db.create_all()
 except Exception, e:
@@ -125,7 +133,5 @@ except Exception, e:
 if __name__ == '__main__':
 	app.run()
 
-@app.route('/delete/<eventname>/<memberid>')
-def delete(eventname,memberid):
-	database = TinyDB('/home/ankit/holocaust2/'+eventname+'.db')
+
 
