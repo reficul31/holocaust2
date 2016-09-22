@@ -3,11 +3,11 @@
 <head>
 
 <meta charset="UTF-8">
-<title>IECSE Registrations</title><script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<title>IECSE Registrations</title>
 
-    <script src ="../static/js/jquery.js"></script>
-
-<!-- Insert this line after script imports -->
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script src ="../static/js/jquery.js"></script>
+<script src ="../static/js/index.js"></script>
 <script>if (window.module) module = window.module;</script>
 <script src="https://use.fontawesome.com/426ef538fa.js"></script>
 	
@@ -92,20 +92,6 @@ a
 	<div class="container">
 		
 		<span id="create"> Create New Event </span>
-		<script>
-				$(document).ready(function() {
-					$('#create').on("click",function(){
-					    var url= "/make/event"
-					    $.ajax({
-					      url: url,
-					      success: function(data){
-					           $('.container').html(data);
-					      }
-					    });
-					});
-				});
-					
-		</script>
 		
 		<br><br>
 
@@ -114,22 +100,6 @@ a
 			{% for k in all_events %}
 				<li> <span class="verify" id="{{k[0]}}"> {{k[0]}}</a> <br></li>
 
-				<script>
-				$(document).ready(function() {
-					$('.verify').on("click",function(){
-					    var url= "/verify/"+ this.id; 
-					    $.ajax({
-					      url: url,
-					      success: function(data){
-					           $('.container').html(data);
-					      }
-					    });
-					});
-
-
-				});
-					
-				</script>
 			{% endfor %}
 		</ol>
 		<br>
@@ -138,21 +108,6 @@ a
 		<ol>
 			{% for k in all_events %}
 				<li> <span class="view" id="{{k[0]}}"> {{k[0]}}</a> <br></span></li>
-
-				<script>
-				$(document).ready(function() {
-					$('.view').on("click",function(){
-					    var url= "/view/" + this.id;
-					    $.ajax({
-					      url: url,
-					      success: function(data){
-					           $('.container').html(data);
-					      }
-					    });
-					});
-				});
-					
-				</script>
 			{% endfor %}
 		</ol>
 	</div>

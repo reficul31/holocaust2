@@ -1,15 +1,11 @@
 <html>
 <head>
 
-<title>Testing</title>
+<title>Register</title>
 
-
-
-   <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
-
-    <script src ="../static/js/jquery.js"></script>
-
-<!-- Insert this line after script imports -->
+ <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script src ="../static/js/jquery.js"></script>
+<script src ="../static/js/register1.js"></script>
 <script>if (window.module) module = window.module;</script>
 <script src="https://use.fontawesome.com/426ef538fa.js"></script>
 <style>
@@ -154,7 +150,7 @@ tr:nth-child(even)
 				    {% for key in k %} 
 				    	<td>{{k[key]}}</td>
 				    {% endfor %}
-				    	<td> <a href="/delete/{{eventname}}/{{member_id}}">Delete </a>
+				    	<td> <a href="/delete/{{eventname}}/">Delete </a>
 				</tr>
 			 {% endfor %}
 		</table>
@@ -195,28 +191,5 @@ tr:nth-child(even)
     	<input type="hidden" id="sender" name='sender'>
 		</form>
 	</div>
-		<script>	
-
-
-			var formdata=[];
-			$(document).ready(function()
-			{
-				$('#adduser').click(function() {
-		   			$(".wrapper").toggle();
-				});
-
-				$( "#registerform" ).submit(function( event ) {
-					var obj = {}
-				  	$.each($( this ).serializeArray() , function(k,v){ 	
-				  	obj[v.name]=v.value;
-				  });
-				event.preventDefault();
- 				formdata=JSON.stringify(obj);
- 				document.getElementById('sender').value= formdata;
-        		$("#senderform").submit();
-			});
-		});
-
-		</script>
 	</body>
 </html>
