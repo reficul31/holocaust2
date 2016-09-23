@@ -1,13 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Verify Password</title>
+
+<meta charset="UTF-8">
+<title>Verify Password</title>
+
+<style>
+
+#formwrapper
+{
+	margin:0 auto;
+	width:200px;
+	height:100px;
+	position:relative;
+	margin-top:100px;
+}
+
+#textbox
+{
+	border:none;
+	background-color: #eee;
+	border-bottom:1px solid grey;
+	text-transform: capitalize;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+#send
+{
+	width:100px;
+	height:30px;
+	border-radius: 3px;
+	border:none;
+	margin-top:15px;
+	background-color: #0D47A1;
+	color:white;
+}
+
+
+</style>
+
 </head>
 <body>
+
+<div id="formwrapper">
 	<form id = "senderform" action="{{url_for('verify',eventname=eventname)}}" method='POST'>
-    Enter event password: <input type="password" name='passkey'><br>
-    <input type="submit" name="submit">
-</form>
+    Enter event password: <input type="password" name='passkey' id="textbox"><br>
+    <input type="submit" name="Submit" id="send">
+	</form>
+</div>	
 </body>
 </html>

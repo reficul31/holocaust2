@@ -1,0 +1,7 @@
+1. The first field of each event creation will be 'memberid', which will serve as the primary key for the table. Note that it has to be 'memberid' and not some variation of it, due to the way the delete function is implemented currently. Maybe it can be changed in a future update.
+
+2. Form on the register page needs to be put into a modal
+
+3. Icons for add event, register and view on the home page
+
+4. User should be alerted if data is uploaded successfully or not.
