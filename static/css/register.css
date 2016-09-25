@@ -23,18 +23,18 @@ html,body
 	text-align: center;
 	color:white;
 	line-height:100px;
+	z-index:0;
 }
 
 .container
 {
-	width:80%;
+	width:100%;
 	height:-webkit-calc(100% - 100px);
 	background-color: #eee;
 	box-sizing: border-box;
 	padding:20px;
 	margin: 0 auto;
 	z-index:0;
-	position:relative;
 }
 
 #textbox
@@ -57,16 +57,21 @@ textarea:focus, input:focus{
     outline: none;
 }
 
+#register-modal
+{
+	z-index: 1;
+}
 #send
 {
-	width:150px;
-	height:30px;
+	width:100%px;
+	height:60px;
 	border-radius: 3px;
 	border:none;
 	margin-top:15px;
 	background-color: #0D47A1;
 	color:white;
-	font-size:20px;
+	font-size:18px;
+
 }
 
 #registerform
@@ -75,7 +80,7 @@ textarea:focus, input:focus{
 	margin:0 auto;
 }
 
-#adduser,#upload
+#adduser,#uploaduser
 {
 	font-size:40;
 }
@@ -84,20 +89,6 @@ textarea:focus, input:focus{
 {
 	font-size:36;
 	color:white;
-}
-#usertable,#adduser
-{
-	z-index: 0;
-}
-.wrapper
-{
-	width:100%;
-	position:relative;
-	z-index:10;
-	height:95%;
-	background-color: white;	
-	display:none;
-	top:0;
 }
 
 a
