@@ -1,6 +1,7 @@
 var formdata=[];
 
 $(document).ready(function() {
+
 	$('#adduser').click(function() {
 			$(".wrapper").toggle();
 	});

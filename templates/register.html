@@ -8,19 +8,182 @@
 <script src ="../static/js/register1.js"></script>
 <script>if (window.module) module = window.module;</script>
 <script src="https://use.fontawesome.com/426ef538fa.js"></script>
-<link rel="stylesheet" type="text/css" href="../static/css/register.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="../static/css/register.css"> -->
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<script>
+$("#adduser").on("click", function(){
+  $("#register-modal").modal('show');
+});
+
+</script>
+<style>
+html,body 
+{
+    line-height: 1.6;
+    padding: 0px;
+    margin: 0;
+    width:100%;
+    height:100%;
+   	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+   	background-color: #eee;
+}
+
+/*::-webkit-scrollbar 
+{ 
+    display: none; 
+}*/
+
+.header
+{
+	height:100px;
+	width:100%;
+	background-color: black;
+	font-size:26px;
+	text-align: center;
+	color:white;
+	line-height:100px;
+	z-index:-1;
+}
+
+.container
+{
+	width:80%;
+	height:-webkit-calc(100% - 100px);
+	background-color: #eee;
+	box-sizing: border-box;
+	padding:20px;
+	margin: 0 auto;
+	z-index:-1;
+}
+
+#textbox
+{
+	background-color: white;
+	border:1px solid #D3D3D3;
+	text-transform: capitalize;
+	font-size:16px;
+	color:grey;
+	box-sizing: border-box;
+	padding-left:2px;
+}
+
+label
+{
+	font-size:18px;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+#register-modal
+{
+	z-index: 999;
+}
+#send
+{
+	width:93%;
+	height:30px;
+	border-radius: 3px;
+	border:none;
+	background-color: #0D47A1;
+	color:white;
+	font-size:18px;
+
+}
+
+#registerform
+{
+	width:80%;
+	margin:0 auto;
+}
+
+#adduser,#uploaduser
+{
+	font-size:40;
+}
+
+#home
+{
+	font-size:36;
+	color:white;
+}
+
+a
+{
+	color:black;
+	text-decoration: none;
+}
+
+tr:nth-child(even) 
+{
+	background-color: #ffffff;
+}
+
+</style>
 </head>
 
 <body>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Register {{eventname}}</h4>
+        </div>
+        <div class="modal-body">
+          <form name ="registerform" id="registerform" action="{{url_for('register',eventname=eventname)}}" method='POST'>
+
+				{%for k in data%}
+					<br>
+					{%if k.type == "textbox"%}
+					<label><b>{{k.label}}</b></label><br>	
+						<input type="text" name='{{k.label}}' id = 'textbox' required class="form-element form-textbox" />
+					{%endif%}
+
+					{%if k.type == "checkbox"%}
+					<label><b>{{k.label}}</b></label><br>
+					{%set list1 = k.vals.split(",")%}
+						{%for l in list1%}
+						<input type="checkbox" name='{{k.label}}' value={{l}} required class="form-element form-checkbox">{{l}}
+						{%endfor%}
+					{%endif%}
+
+					{%if k.type == "radiobutton"%}
+					<label><b>{{k.label}}</b></label><br>
+					{%set list1 = k.vals.split(",")%}
+						{%for l in list1%}
+						<input type="radio" name = '{{k.label}}' value='{{l}}' required class="form-element form-radiobutton">{{l}}
+						{%endfor%}
+					{%endif%}
+
+				{%endfor%}
+				<br><br>
+				<input type="submit" name="submit" value="Submit" id='send'>
+				</form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
 	<div class="header"><a href="/">
-	<i class="fa fa-home" id="home" aria-hidden="true"></i>&nbsp
-	</a>IECSE Registrations</div>
+	<i class="fa fa-home" id="home" aria-hidden="true" ></i>&nbsp
+	</a>IECSE Registrations
+	</div>
 
 	<div class="container"> 
-	<i class="fa fa-user" id="adduser"></i> &nbsp Add Member &nbsp &nbsp
+	<i class="fa fa-user" id="adduser" data-toggle="modal" data-target="#myModal"></i> &nbsp Add Member &nbsp &nbsp
 
 	<a href="/upload/{{eventname}}">
-	<i class="fa fa-upload" id="upload" aria-hidden="true"></i>&nbsp Upload data
+	<i class="fa fa-upload" id="uploaduser" aria-hidden="true"></i>&nbsp Upload data
 	</a>
 	<br>
 
@@ -43,42 +206,9 @@
 		 {% endfor %}
 	</table>
 
-<div class="wrapper">
-	<form name ="registerform" id="registerform" action="{{url_for('register',eventname=eventname)}}" method='POST'>
-
-	{%for k in data%}
-		<br>
-		{%if k.type == "textbox"%}
-		<label><b>{{k.label}}</b></label><br>	
-			<input type="text" name='{{k.label}}' id = 'textbox' required class="form-element form-textbox" />
-		{%endif%}
-
-		{%if k.type == "checkbox"%}
-		<label><b>{{k.label}}</b></label><br>
-		{%set list1 = k.vals.split(",")%}
-			{%for l in list1%}
-			<input type="checkbox" name='{{k.label}}' value={{l}} required class="form-element form-checkbox">{{l}}
-			{%endfor%}
-		{%endif%}
-
-		{%if k.type == "radiobutton"%}
-		<label><b>{{k.label}}</b></label><br>
-		{%set list1 = k.vals.split(",")%}
-			{%for l in list1%}
-			<input type="radio" name = '{{k.label}}' value='{{l}}' required class="form-element form-radiobutton">{{l}}
-			{%endfor%}
-		{%endif%}
-
-	{%endfor%}
-	<br><br>
-	<input type="submit" name="submit" value="Submit" id='send'>
-	</form>
-	</div>
-
 	<form name="senderform" id ="senderform" action="{{url_for('register',eventname=eventname)}}" method='POST'>
 	<input type="hidden" id="sender" name='sender'>
 	</form>
-
 </div>
 </body>
 
